@@ -1,0 +1,8 @@
+Selain->Palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+note over Palvelin
+Luodaan uusi muistiinpano palvelimella
+end note
+Palvelin->Selain: Status Code: 201
+note over Selain
+Saadaan vastaus muistiinpanon luomisen onnistumisesta
+end note
