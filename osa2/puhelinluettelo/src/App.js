@@ -29,7 +29,6 @@ const PersonForm = ({addPerson, newName, nameHandler, newNumber, numberHandler})
   )
 }
 
-
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
@@ -64,7 +63,7 @@ const App = () => {
       event.target.value === ""
         ? persons
         : persons.filter((person) =>
-            person.name.match(new RegExp(`^${event.target.value}\\w*`, "g"))
+            person.name.match(new RegExp(`^${event.target.value}\\w*`, "gi"))
           )
     );
   };
