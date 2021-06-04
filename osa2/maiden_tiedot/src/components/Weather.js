@@ -3,22 +3,22 @@ import React, { useEffect, useState } from 'react'
 const Weather = ({capital}) => {
 
     const apiKey = process.env.REACT_APP_API_KEY
-    const [weather, setWeather] = useState({temperature: 0, wind: 0, direction: 0, pressure: 0, humidity:0, status: 0})
+    const [weather, setWeather] = useState([])
 
     useEffect(()=>{
         fetch(`http://api.openweathermap.org/data/2.5/weather?q=${capital}&appid=${apiKey}&units=metric`)
         .then(response => response.json())
-        .then(response => setWeather({temperature: response.main.temp, wind: response.wind.speed, direction: response.wind.deg, pressure:response.main.pressure, humidity:response.main.humidity, status: response.weather[0].main}))
+        .then(response => setWeather({...response}))
     }, [apiKey, capital])
 
     return (
         <div className="weather">
             <h2>Weather in {capital}</h2>
-            <p>Temperature: {weather.temperature} Celcius</p>
-            <p>Status: {weather.status}</p>
-            <p>Pressure: {weather.pressure}hPa</p>
-            <p>Humidity: {weather.humidity}%</p>
-            <p>Wind: {weather.wind}m/s {weather.direction}deg</p>
+            <p>Temperature: {weather.main ? weather.main.temp: '-'} Celcius</p>
+            <p>Status: {weather.weather ? weather.weather[0].main:'-'}</p>
+            <p>Pressure: {weather.main? weather.main.pressure:'-'}hPa</p>
+            <p>Humidity: {weather.main?weather.main.humidity:'-'}%</p>
+            <p>Wind: {weather.wind? `${weather.wind.speed}m/s ${weather.wind.deg}deg`: '-m/s -deg'}</p>
         </div>
     )
 }
