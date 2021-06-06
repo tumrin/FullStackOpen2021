@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Message from "./Message";
 import ServerFunctions from "./ServerFunctions";
 
 const Person = ({person}) =>{
@@ -35,9 +36,10 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [newFilter, setNewFilter] = useState("");
   const [shownPersons, setShownPersons] = useState(persons);
+  const [error, setError] = useState(null)
 
   useEffect(() => {
-      ServerFunctions.getContacts()
+      ServerFunctions.getContacts(setError)
       .then(contacts=> {
       setPersons(contacts)
       setShownPersons(contacts)})
@@ -51,7 +53,7 @@ const App = () => {
       }
       return;
     }
-    ServerFunctions.addContact({name:newName, number:newNumber, id:persons.length+1})
+    ServerFunctions.addContact({name:newName, number:newNumber, id:persons.length+1}, setError)
     if (newFilter === "") {
 
       setShownPersons(
@@ -64,7 +66,7 @@ const App = () => {
   const editPerson = (contact, newNumber) => {
     setShownPersons(persons.map(person => person.name===contact.name?{...person, number:newNumber}:person))
     setPersons(persons.map(person => person.name===contact.name?{...person, number:newNumber}:person))
-    ServerFunctions.editContact(contact, newNumber)
+    ServerFunctions.editContact(contact, newNumber, setError)
   }
 
   const removePerson = (contact) => {
@@ -72,7 +74,7 @@ const App = () => {
     setShownPersons(persons.filter((person)=>person.id!==contact.id))
     setPersons(persons.filter((person)=>person.id!==contact.id))
     console.log(contact.id)
-    ServerFunctions.deleteContact(contact.id)
+    ServerFunctions.deleteContact(contact, setError)
     }
   }
 
@@ -94,6 +96,7 @@ const App = () => {
   };
   return (
     <div>
+      <Message error={error}/>
       <h2>Phonebook</h2>
       filter shown with
       <FilterForm filterHandler={filterHandler} newFilter={newFilter}/>
