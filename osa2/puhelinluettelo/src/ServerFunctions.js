@@ -8,7 +8,6 @@ const addContact = (contact) => {
 const deleteContact = (id) => {
     axios
     .delete(`http://localhost:3001/persons/${id}`)
-    .then(response => console.log(response))
     .catch(error=> console.log(`${error} in deleteContact`))
 }
 const getContacts = () => {
@@ -18,7 +17,14 @@ const getContacts = () => {
     .catch(error=> console.log(`${error} in getContact`))
     )
 }
+const editContact = (contact, newNumber) => {
+    console.log(contact.id)
+    console.log(contact)
+    axios
+    .put(`http://localhost:3001/persons/${contact.id}`, {...contact, number: newNumber})
+    .catch(error=> console.log(`${error} in editContact`))
+}
 
-const ServerFunctions = {addContact, deleteContact, getContacts}
+const ServerFunctions = {addContact, deleteContact, getContacts, editContact}
 
 export default ServerFunctions

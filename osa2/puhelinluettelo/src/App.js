@@ -46,7 +46,9 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault();
     if (persons.some((person) => person.name === newName)) {
-      alert(`${newName} is already added to phonebook`);
+      if(window.confirm(`${newName} is already added to phonebook, change number?`)){
+        editPerson(persons.find((person) => person.name===newName), newNumber)
+      }
       return;
     }
     ServerFunctions.addContact({name:newName, number:newNumber, id:persons.length+1})
@@ -58,6 +60,12 @@ const App = () => {
     }
     setPersons(persons.concat({ name: newName, number: newNumber, id:persons.length+1}));
   };
+
+  const editPerson = (contact, newNumber) => {
+    setShownPersons(persons.map(person => person.name===contact.name?{...person, number:newNumber}:person))
+    setPersons(persons.map(person => person.name===contact.name?{...person, number:newNumber}:person))
+    ServerFunctions.editContact(contact, newNumber)
+  }
 
   const removePerson = (contact) => {
     if(window.confirm(`Delete ${contact.name}`)){
