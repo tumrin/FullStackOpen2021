@@ -2,7 +2,7 @@ import axios from "axios";
 
 const addContact = (contact, setError) => {
   axios
-    .post("http://localhost:3001/persons", {
+    .post("/api/persons", {
       name: contact.name,
       number: contact.number,
       id: contact.id,
@@ -20,7 +20,7 @@ const addContact = (contact, setError) => {
 };
 const deleteContact = (contact, setError) => {
   axios
-    .delete(`http://localhost:3001/persons/${contact.id}`)
+    .delete(`/api/persons/${contact.id}`)
     .then(() => {
       setError({ success: true, operation: "deleting", name: contact.name });
     })
@@ -34,7 +34,7 @@ const deleteContact = (contact, setError) => {
 };
 const getContacts = (setError) => {
   return axios
-    .get("http://localhost:3001/persons")
+    .get("/api/persons")
     .then((response) => response.data)
     .catch((error) => console.log(`${error} in getContact`));
 };
@@ -42,7 +42,7 @@ const editContact = (contact, newNumber, setError) => {
   console.log(contact.id);
   console.log(contact);
   axios
-    .put(`http://localhost:3001/persons/${contact.id}`, {
+    .put(`/api/persons/${contact.id}`, {
       ...contact,
       number: newNumber,
     })
