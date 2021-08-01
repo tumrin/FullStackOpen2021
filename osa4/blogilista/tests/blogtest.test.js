@@ -90,3 +90,51 @@ describe('Favorite blog', () => {
         expect(listHelper.favoriteBlog(blogs)).toEqual(blog2)
     })
 })
+
+describe('Most blogs', () => {
+
+    test('Empty list', () => {
+        const blogs = []
+        expect(listHelper.mostBlogs(blogs)).toEqual(null)
+    })
+
+    test('One blog', () => {
+        const blog = {
+            title: "Testi",
+            author: "Testi henkilö",
+            url: "Unknown",
+            likes: 1
+        }
+        const blogs = [blog]
+        expect(listHelper.mostBlogs(blogs)).toEqual({author:'Testi henkilö', blogs: 1})
+    })
+
+    test('Has multiple blogs', ()=>{
+        const blog = {
+            title: "Testi",
+            author: "Testi henkilö",
+            url: "Unknown",
+            likes: 1
+        }
+        const blog1 = {
+            title: "Testi1",
+            author: "Testi henkilö1",
+            url: "Unknown",
+            likes: 2
+        }
+        const blog2 = {
+            title: "Testi2",
+            author: "Testi henkilö1",
+            url: "Unknown",
+            likes: 3
+        }
+        const blog3 = {
+            title: "Testi3",
+            author: "Testi henkilö3",
+            url: "Unknown",
+            likes: 3
+        }
+       const  blogs = [blog, blog1, blog2, blog3]
+        expect(listHelper.mostBlogs(blogs)).toEqual({author:'Testi henkilö1', blogs: 2})
+    })
+})
