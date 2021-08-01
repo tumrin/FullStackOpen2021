@@ -137,6 +137,35 @@ describe('Most blogs', () => {
        const  blogs = [blog, blog1, blog2, blog3]
         expect(listHelper.mostBlogs(blogs)).toEqual({author:'Testi henkilö1', blogs: 2})
     })
+
+    test('Multiple most blogs', () => {
+        const blog = {
+            title: "Testi",
+            author: "Testi henkilö",
+            url: "Unknown",
+            likes: 1
+        }
+        const blog1 = {
+            title: "Testi1",
+            author: "Testi henkilö1",
+            url: "Unknown",
+            likes: 2
+        }
+        const blog2 = {
+            title: "Testi2",
+            author: "Testi henkilö1",
+            url: "Unknown",
+            likes: 3
+        }
+        const blog3 = {
+            title: "Testi3",
+            author: "Testi henkilö",
+            url: "Unknown",
+            likes: 3
+        }
+       const  blogs = [blog, blog1, blog2, blog3]
+        expect(listHelper.mostBlogs(blogs)).toEqual({author:'Testi henkilö', blogs: 2})
+    })
 })
 
 describe('Most Likes', () => {
@@ -184,5 +213,33 @@ describe('Most Likes', () => {
         }
        const  blogs = [blog, blog1, blog2, blog3]
         expect(listHelper.mostLikes(blogs)).toEqual({author:'Testi henkilö1', likes: 5})
+    })
+    test('Multiple most Likes', () => {
+        const blog = {
+            title: "Testi",
+            author: "Testi henkilö",
+            url: "Unknown",
+            likes: 2
+        }
+        const blog1 = {
+            title: "Testi1",
+            author: "Testi henkilö1",
+            url: "Unknown",
+            likes: 2
+        }
+        const blog2 = {
+            title: "Testi2",
+            author: "Testi henkilö1",
+            url: "Unknown",
+            likes: 3
+        }
+        const blog3 = {
+            title: "Testi3",
+            author: "Testi henkilö",
+            url: "Unknown",
+            likes: 3
+        }
+       const  blogs = [blog, blog1, blog2, blog3]
+        expect(listHelper.mostLikes(blogs)).toEqual({author:'Testi henkilö', likes: 5})
     })
 })
