@@ -138,3 +138,51 @@ describe('Most blogs', () => {
         expect(listHelper.mostBlogs(blogs)).toEqual({author:'Testi henkilö1', blogs: 2})
     })
 })
+
+describe('Most Likes', () => {
+
+    test('Empty list', () => {
+        const blogs = []
+        expect(listHelper.mostLikes(blogs)).toEqual(null)
+    })
+
+    test('One blog', () => {
+        const blog = {
+            title: "Testi",
+            author: "Testi henkilö",
+            url: "Unknown",
+            likes: 1
+        }
+        const blogs = [blog]
+        expect(listHelper.mostLikes(blogs)).toEqual({author:'Testi henkilö', likes: 1})
+    })
+
+    test('Has multiple blogs', ()=>{
+        const blog = {
+            title: "Testi",
+            author: "Testi henkilö",
+            url: "Unknown",
+            likes: 1
+        }
+        const blog1 = {
+            title: "Testi1",
+            author: "Testi henkilö1",
+            url: "Unknown",
+            likes: 2
+        }
+        const blog2 = {
+            title: "Testi2",
+            author: "Testi henkilö1",
+            url: "Unknown",
+            likes: 3
+        }
+        const blog3 = {
+            title: "Testi3",
+            author: "Testi henkilö3",
+            url: "Unknown",
+            likes: 3
+        }
+       const  blogs = [blog, blog1, blog2, blog3]
+        expect(listHelper.mostLikes(blogs)).toEqual({author:'Testi henkilö1', likes: 5})
+    })
+})

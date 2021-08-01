@@ -27,9 +27,20 @@ const mostBlogs= (blogs) => {
   return mostBlogs || null
 }
 
+const mostLikes = (blogs) => {
+  let authorLikes = {};
+  blogs.forEach(blog => authorLikes[blog.author] = 0)
+  blogs.forEach(blog => authorLikes[blog.author] += blog.likes)
+  authorLikes = Object.entries(authorLikes)
+  let mostLikes = lodash.maxBy(authorLikes, (blog) => blog[1])
+  mostLikes = mostLikes?{author: mostLikes[0], likes: mostLikes[1]}:undefined
+  return mostLikes || null
+}
+
 module.exports = {
     dummy,
     totalLikes,
     favoriteBlog,
-    mostBlogs
+    mostBlogs,
+    mostLikes
   }
