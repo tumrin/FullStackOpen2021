@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "./node_modules/nodemon/bin/nodemon.js index.js",
-    "test": "jest --verbose"
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
   },
   "author": "Tuomas Rinne",
   "license": "ISC",
@@ -18,8 +18,10 @@
     "mongoose": "^5.13.5"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "jest": "^27.0.6",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "supertest": "^6.1.4"
   },
   "jest": {
     "testEnvironment": "node"
