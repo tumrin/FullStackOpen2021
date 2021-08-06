@@ -23,7 +23,7 @@ test('one blog', async () => {
     expect(response.body).toHaveLength(1)
     expect(response.type).toBe('application/json')
   })
-  test('one blog', async () => {
+  test('check id field', async () => {
     const response = await api.get('/api/blogs')
     
     response.body.forEach(blog => expect(blog.id).toBeDefined())
