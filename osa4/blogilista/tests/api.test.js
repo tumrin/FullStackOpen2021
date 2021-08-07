@@ -72,6 +72,21 @@ test('Remove by id', async () => {
     initialBlog.length - 1
   )
 })
+test('Update by id', async () => {
+  const blogs = await api.get('/api/blogs')
+  const updatedBlog = {
+    url: 'String2',
+    likes: 2
+  }
+
+  await api
+  .patch(`/api/blogs/${blogs.body[0].id}`).send(updatedBlog)
+
+  const blogsEnd = await api.get(`/api/blogs`)
+
+  expect(blogsEnd.body[0].likes).toBe(2)
+  expect(blogsEnd.body[0].url).toBe('String2')
+})
 
 
 afterAll(() => {
