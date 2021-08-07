@@ -14,7 +14,7 @@ const initialBlog = [
 ]
 beforeEach(async () => {
   await Blog.deleteMany({})
-  let blog = new Blog(initialBlog)
+  let blog = new Blog(initialBlog[0])
   await blog.save()
 })
 
@@ -59,6 +59,20 @@ test('Title and url required', async () => {
   const response = await api.post('/api/blogs').send(newBlog)
   expect(response.statusCode).toBe(400)
 })
+test('Remove by id', async () => {
+  const blogs = await api.get('/api/blogs')
+
+  await api
+  .delete(`/api/blogs/${blogs.body[0].id}`)
+  .expect(204)
+
+  const blogsEnd = await api.get('/api/blogs')
+
+  expect(blogsEnd.body).toHaveLength(
+    initialBlog.length - 1
+  )
+})
+
 
 afterAll(() => {
   mongoose.connection.close()
