@@ -41,6 +41,16 @@ test('post blog', async () => {
   const response = await api.get('/api/blogs')
   expect(response.body).toHaveLength(2)
 })
+test('Default likes === 0', async () => {
+  const newBlog = {
+    title: 'Title1',
+    author: 'Author1',
+    url: 'String',
+  }
+  await api.post('/api/blogs').send(newBlog)
+  const response = await api.get('/api/blogs')
+  expect(response.body[1].likes).toBe(0)
+})
 
 afterAll(() => {
   mongoose.connection.close()
