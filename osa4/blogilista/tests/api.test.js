@@ -88,7 +88,6 @@ test('Update by id', async () => {
   expect(blogsEnd.body[0].url).toBe('String2')
 })
 
-
 afterAll(() => {
   mongoose.connection.close()
 })
