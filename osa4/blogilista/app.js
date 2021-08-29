@@ -7,8 +7,12 @@ const mongoUrl = require('./utils/config')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 
-
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
+mongoose.connect(mongoUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+})
 
 app.use(cors())
 app.use(express.json())
@@ -17,8 +21,10 @@ app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 
 const errorHandler = (error, request, response, next) => {
-    if(error.name === 'ValidationError'){
+    if (error.name === 'ValidationError') {
         return response.status(400).json({ error: error.message })
+    } else if (error.name === 'JsonWebTokenError') {
+        return response.status(401).json({ error: 'invalid token' })
     }
     next(error)
 }
