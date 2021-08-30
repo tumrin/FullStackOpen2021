@@ -6,6 +6,11 @@ const blogsRouter = require('./controllers/blogs')
 const mongoUrl = require('./utils/config')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
+const {
+    tokenExtractor,
+    userExtractor,
+    errorHandler,
+} = require('./utils/middleware')
 
 mongoose.connect(mongoUrl, {
     useNewUrlParser: true,
@@ -14,14 +19,6 @@ mongoose.connect(mongoUrl, {
     useCreateIndex: true,
 })
 
-const tokenExtractor = (request, response, next) => {
-    const authorization = request.get('authorization')
-    if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-        request.token = authorization.substring(7)
-    }
-    next()
-}
-
 app.use(cors())
 app.use(express.json())
 app.use(tokenExtractor)
@@ -29,14 +26,6 @@ app.use('/api/blogs', blogsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 
-const errorHandler = (error, request, response, next) => {
-    if (error.name === 'ValidationError') {
-        return response.status(400).json({ error: error.message })
-    } else if (error.name === 'JsonWebTokenError') {
-        return response.status(401).json({ error: 'invalid token' })
-    }
-    next(error)
-}
 app.use(errorHandler)
 
 module.exports = app
