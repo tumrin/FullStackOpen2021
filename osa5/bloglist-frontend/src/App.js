@@ -15,13 +15,30 @@ const App = () => {
         blogService.getAllUser(user).then((blogs) => setBlogs(blogs))
     }, [user])
 
+    useEffect(() => {
+        const loggedUserJSON = window.localStorage.getItem('loggedBlogUser')
+        if (loggedUserJSON) {
+            const user = JSON.parse(loggedUserJSON)
+            setUser(user)
+            blogService.setToken(user.token)
+        }
+    }, [])
+
     return (
         <div>
             {user === null ? (
                 loginForm(username, setUsername, password, setPassword, setUser)
             ) : (
                 <div>
-                    <p>{user.name} logged in</p>
+                    {user.name} logged in
+                    <button
+                        onClick={() => {
+                            window.localStorage.removeItem('loggedBlogUser')
+                            setUser(null)
+                        }}
+                    >
+                        logout
+                    </button>
                     {blogForm(blog, setBlog)}
                     <h2>blogs</h2>
                     {blogs.map((blog) => (

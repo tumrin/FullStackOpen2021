@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import loginService from '../services/login'
+import blogsService from '../services/blogs'
 
 const handleLogin = async (event, username, password, setUser) => {
     event.preventDefault()
@@ -8,7 +9,9 @@ const handleLogin = async (event, username, password, setUser) => {
             username,
             password,
         })
-        await setUser(user)
+        window.localStorage.setItem('loggedBlogUser', JSON.stringify(user))
+        blogsService.setToken(user.token)
+        setUser(user)
     } catch (exeption) {}
 }
 
