@@ -12,30 +12,30 @@ const getAll = async () => {
 }
 const getAllUser = async (user) => {
     const response = await axios.get(baseUrl)
-    console.log(user?.username)
     return response.data.filter(
         (entry) => entry.user.username === user?.username
     )
 }
 const create = async (newObject) => {
     const config = { headers: { Authorization: token } }
-    const response = await axios.post(baseUrl, newObject, config)
-    return response.data
+    try {
+        const response = await axios.post(baseUrl, newObject, config)
+        return response.data
+    } catch (e) {
+        console.log(e)
+    }
 }
 const update = async (id, newObject) => {
     const response = await axios.put(`${baseUrl} /${id}`, newObject)
     return response.data
 }
 
-const addBlog = () => {}
-
 const blogsService = {
     getAll,
-    addBlog,
     create,
     update,
     setToken,
-    getAllUser,
+    getAllUser
 }
 
 export default blogsService

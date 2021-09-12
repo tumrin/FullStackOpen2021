@@ -27,6 +27,8 @@ const errorHandler = (error, request, response, next) => {
         return response.status(401).json({ error: 'invalid or missing token' })
     } else if (error.name === 'CastError') {
         return response.status(400).json({ error: error.message })
+    } else if (error.name === 'VersionError') {
+        return response.status(400).json({ error: error.message })
     }
     next(error)
 }
@@ -34,5 +36,5 @@ const errorHandler = (error, request, response, next) => {
 module.exports = {
     tokenExtractor,
     userExtractor,
-    errorHandler,
+    errorHandler
 }

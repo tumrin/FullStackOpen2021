@@ -10,14 +10,14 @@ const loginRouter = require('./controllers/login')
 const {
     tokenExtractor,
     userExtractor,
-    errorHandler,
+    errorHandler
 } = require('./utils/middleware')
 
 mongoose.connect(mongoUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
-    useCreateIndex: true,
+    useCreateIndex: true
 })
 
 app.use(cors())

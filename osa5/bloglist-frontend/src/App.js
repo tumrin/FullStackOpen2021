@@ -9,11 +9,11 @@ const App = () => {
     const [user, setUser] = useState(null)
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [blog, setBlog] = useState('')
+    const [blog, setBlog] = useState({ title: '', author: '', url: '' })
 
     useEffect(() => {
         blogService.getAllUser(user).then((blogs) => setBlogs(blogs))
-    }, [user])
+    }, [user, blog])
 
     useEffect(() => {
         const loggedUserJSON = window.localStorage.getItem('loggedBlogUser')
