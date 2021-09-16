@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
-import loginForm from './components/LoginForm'
-import blogForm from './components/BlogForm'
+import LoginForm from './components/LoginForm'
+import BlogForm from './components/BlogForm'
+import Message from './components/Message'
 
 const App = () => {
     const [blogs, setBlogs] = useState([])
@@ -10,6 +11,17 @@ const App = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [blog, setBlog] = useState({ title: '', author: '', url: '' })
+    const [message, setMessage] = useState(false)
+    const [lastAdded, setLastAdded] = useState({})
+
+    useEffect(() => {
+        if (message === true) {
+            let id = setInterval(() => {
+                setMessage(false)
+                clearInterval(id)
+            }, 2000)
+        }
+    }, [message])
 
     useEffect(() => {
         blogService.getAllUser(user).then((blogs) => setBlogs(blogs))
@@ -26,10 +38,23 @@ const App = () => {
 
     return (
         <div>
+            {message === true && user === null ? <Message type='login' /> : ''}
             {user === null ? (
-                loginForm(username, setUsername, password, setPassword, setUser)
+                <LoginForm
+                    username={username}
+                    setUsername={setUsername}
+                    setPassword={setPassword}
+                    password={password}
+                    setUser={setUser}
+                    setMessage={setMessage}
+                />
             ) : (
                 <div>
+                    {message === true ? (
+                        <Message type='blog' blog={lastAdded} />
+                    ) : (
+                        ''
+                    )}
                     {user.name} logged in
                     <button
                         onClick={() => {
@@ -39,7 +64,12 @@ const App = () => {
                     >
                         logout
                     </button>
-                    {blogForm(blog, setBlog)}
+                    <BlogForm
+                        blog={blog}
+                        setBlog={setBlog}
+                        setMessage={setMessage}
+                        setLastAdded={setLastAdded}
+                    />
                     <h2>blogs</h2>
                     {blogs.map((blog) => (
                         <Blog key={blog.id} blog={blog} />

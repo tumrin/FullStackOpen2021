@@ -2,24 +2,39 @@ import React from 'react'
 import loginService from '../services/login'
 import blogsService from '../services/blogs'
 
-const handleLogin = async (event, username, password, setUser) => {
+const handleLogin = async (event, username, password, setUser, setMessage) => {
     event.preventDefault()
     try {
         const user = await loginService.login({
             username,
-            password,
+            password
         })
         window.localStorage.setItem('loggedBlogUser', JSON.stringify(user))
         blogsService.setToken(user.token)
         setUser(user)
-    } catch (exeption) {}
+    } catch (exeption) {
+        setMessage(true)
+    }
 }
 
-const LoginForm = (username, setUsername, password, setPassword, setUser) => {
+const LoginForm = ({
+    username,
+    setUsername,
+    password,
+    setPassword,
+    setUser,
+    setMessage
+}) => {
     return (
         <form
             onSubmit={async (event) =>
-                await handleLogin(event, username, password, setUser)
+                await handleLogin(
+                    event,
+                    username,
+                    password,
+                    setUser,
+                    setMessage
+                )
             }
         >
             <div>

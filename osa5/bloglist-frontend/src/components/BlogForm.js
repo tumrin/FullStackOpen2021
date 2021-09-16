@@ -1,16 +1,28 @@
 import React from 'react'
 import blogService from '../services/blogs'
 
-const creationHandler = async (event, blog, setBlog) => {
+const creationHandler = async (
+    event,
+    blog,
+    setBlog,
+    setMessage,
+    setLastAdded
+) => {
     event.preventDefault()
     await blogService.create(blog)
     console.log('done')
+    setMessage(true)
+    setLastAdded(blog)
     await setBlog({ title: '', author: '', url: '' })
 }
 
-const BlogForm = (blog, setBlog) => {
+const BlogForm = ({ blog, setBlog, setMessage, setLastAdded }) => {
     return (
-        <form onSubmit={(event) => creationHandler(event, blog, setBlog)}>
+        <form
+            onSubmit={(event) =>
+                creationHandler(event, blog, setBlog, setMessage, setLastAdded)
+            }
+        >
             <h1>Create new blog</h1>
             <label>Title</label>
             <input
