@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import Message from './components/Message'
+import Togglable from './components/Togglable'
 
 const App = () => {
     const [blogs, setBlogs] = useState([])
@@ -13,6 +14,8 @@ const App = () => {
     const [blog, setBlog] = useState({ title: '', author: '', url: '' })
     const [message, setMessage] = useState(false)
     const [lastAdded, setLastAdded] = useState({})
+
+    const blogFormRef = useRef()
 
     useEffect(() => {
         if (message === true) {
@@ -64,12 +67,15 @@ const App = () => {
                     >
                         logout
                     </button>
-                    <BlogForm
-                        blog={blog}
-                        setBlog={setBlog}
-                        setMessage={setMessage}
-                        setLastAdded={setLastAdded}
-                    />
+                    <Togglable buttonLabel='New blog' ref={blogFormRef}>
+                        <BlogForm
+                            blog={blog}
+                            setBlog={setBlog}
+                            setMessage={setMessage}
+                            setLastAdded={setLastAdded}
+                            toggleRef={blogFormRef}
+                        />
+                    </Togglable>
                     <h2>blogs</h2>
                     {blogs.map((blog) => (
                         <Blog key={blog.id} blog={blog} />

@@ -7,7 +7,7 @@ const handleLogin = async (event, username, password, setUser, setMessage) => {
     try {
         const user = await loginService.login({
             username,
-            password
+            password,
         })
         window.localStorage.setItem('loggedBlogUser', JSON.stringify(user))
         blogsService.setToken(user.token)
@@ -23,7 +23,7 @@ const LoginForm = ({
     password,
     setPassword,
     setUser,
-    setMessage
+    setMessage,
 }) => {
     return (
         <form

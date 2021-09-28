@@ -6,21 +6,29 @@ const creationHandler = async (
     blog,
     setBlog,
     setMessage,
-    setLastAdded
+    setLastAdded,
+    toggleRef
 ) => {
     event.preventDefault()
     await blogService.create(blog)
-    console.log('done')
     setMessage(true)
     setLastAdded(blog)
+    toggleRef.current.toggleVisibility()
     await setBlog({ title: '', author: '', url: '' })
 }
 
-const BlogForm = ({ blog, setBlog, setMessage, setLastAdded }) => {
+const BlogForm = ({ blog, setBlog, setMessage, setLastAdded, toggleRef }) => {
     return (
         <form
             onSubmit={(event) =>
-                creationHandler(event, blog, setBlog, setMessage, setLastAdded)
+                creationHandler(
+                    event,
+                    blog,
+                    setBlog,
+                    setMessage,
+                    setLastAdded,
+                    toggleRef
+                )
             }
         >
             <h1>Create new blog</h1>
