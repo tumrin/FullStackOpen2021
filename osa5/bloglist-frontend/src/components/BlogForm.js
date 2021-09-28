@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import blogService from '../services/blogs'
 
 const creationHandler = async (
@@ -14,10 +14,11 @@ const creationHandler = async (
     setMessage(true)
     setLastAdded(blog)
     toggleRef.current.toggleVisibility()
-    await setBlog({ title: '', author: '', url: '' })
+    setBlog({ title: '', author: '', url: '' })
 }
 
-const BlogForm = ({ blog, setBlog, setMessage, setLastAdded, toggleRef }) => {
+const BlogForm = ({ setMessage, setLastAdded, toggleRef }) => {
+    const [blog, setBlog] = useState({ title: '', author: '', url: '' })
     return (
         <form
             onSubmit={(event) =>

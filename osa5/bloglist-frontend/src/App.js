@@ -11,24 +11,19 @@ const App = () => {
     const [user, setUser] = useState(null)
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [blog, setBlog] = useState({ title: '', author: '', url: '' })
     const [message, setMessage] = useState(false)
     const [lastAdded, setLastAdded] = useState({})
-
     const blogFormRef = useRef()
 
     useEffect(() => {
+        blogService.getAllUser(user).then((blogs) => setBlogs(blogs))
         if (message === true) {
             let id = setInterval(() => {
                 setMessage(false)
                 clearInterval(id)
             }, 2000)
         }
-    }, [message])
-
-    useEffect(() => {
-        blogService.getAllUser(user).then((blogs) => setBlogs(blogs))
-    }, [user, blog])
+    }, [message, user])
 
     useEffect(() => {
         const loggedUserJSON = window.localStorage.getItem('loggedBlogUser')
@@ -69,8 +64,6 @@ const App = () => {
                     </button>
                     <Togglable buttonLabel='New blog' ref={blogFormRef}>
                         <BlogForm
-                            blog={blog}
-                            setBlog={setBlog}
                             setMessage={setMessage}
                             setLastAdded={setLastAdded}
                             toggleRef={blogFormRef}
