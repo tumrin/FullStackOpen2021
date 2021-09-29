@@ -26,7 +26,8 @@ const create = async (newObject) => {
     }
 }
 const update = async (id, newObject) => {
-    const response = await axios.put(`${baseUrl} /${id}`, newObject)
+    console.log(newObject)
+    const response = await axios.patch(`${baseUrl}/${id}`, newObject)
     return response.data
 }
 
@@ -35,7 +36,7 @@ const blogsService = {
     create,
     update,
     setToken,
-    getAllUser
+    getAllUser,
 }
 
 export default blogsService

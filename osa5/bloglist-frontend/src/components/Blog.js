@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-const Blog = ({ blog }) => {
+const Blog = ({ blog, blogService }) => {
     const [detail, showDetail] = useState(false)
+    const [likes, setLikes] = useState(blog.likes)
     if (detail) {
         return (
             <div style={{ borderStyle: 'solid', marginBottom: 10, padding: 2 }}>
@@ -9,7 +10,21 @@ const Blog = ({ blog }) => {
                 <br />
                 {blog.url}
                 <br />
-                {blog.likes} <button>like</button>
+                {likes}{' '}
+                <button
+                    onClick={() => {
+                        setLikes(++blog.likes)
+                        blogService.update(blog.id, {
+                            user: blog.user.id,
+                            likes: blog.likes,
+                            author: blog.author,
+                            title: blog.title,
+                            url: blog.url,
+                        })
+                    }}
+                >
+                    like
+                </button>
                 <br />
                 {blog.user.name}
             </div>
