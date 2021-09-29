@@ -26,8 +26,15 @@ const create = async (newObject) => {
     }
 }
 const update = async (id, newObject) => {
-    console.log(newObject)
     const response = await axios.patch(`${baseUrl}/${id}`, newObject)
+    return response.data
+}
+const remove = async (id) => {
+    const response = await axios.delete(`${baseUrl}/${id}`, {
+        headers: {
+            Authorization: token,
+        },
+    })
     return response.data
 }
 
@@ -37,6 +44,7 @@ const blogsService = {
     update,
     setToken,
     getAllUser,
+    remove,
 }
 
 export default blogsService

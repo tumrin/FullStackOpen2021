@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-const Blog = ({ blog, blogService, setBlogs, blogs }) => {
+const Blog = ({ blog, blogService, setBlogs, blogs, user }) => {
     const [detail, showDetail] = useState(false)
     const [likes, setLikes] = useState(blog.likes)
     if (detail) {
@@ -30,6 +30,27 @@ const Blog = ({ blog, blogService, setBlogs, blogs }) => {
                 </button>
                 <br />
                 {blog.user.name}
+                <br />
+                {console.log(user)}
+                {blog.user.username === user.username ? (
+                    <button
+                        onClick={() => {
+                            let result = window.confirm(`Remove ${blog.title}?`)
+                            if (result) {
+                                blogService.remove(blog.id)
+                                setBlogs(
+                                    blogs.filter(
+                                        (e, i) => i !== blogs.indexOf(blog)
+                                    )
+                                )
+                            }
+                        }}
+                    >
+                        remove
+                    </button>
+                ) : (
+                    ''
+                )}
             </div>
         )
     } else {
