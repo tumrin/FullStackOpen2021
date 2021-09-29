@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
-import Blog from './components/Blog'
 import blogService from './services/blogs'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import Message from './components/Message'
 import Togglable from './components/Togglable'
+import BlogList from './components/BlogList'
 
 const App = () => {
-    const [blogs, setBlogs] = useState([])
     const [user, setUser] = useState(null)
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -16,7 +15,6 @@ const App = () => {
     const blogFormRef = useRef()
 
     useEffect(() => {
-        blogService.getAllUser(user).then((blogs) => setBlogs(blogs))
         if (message === true) {
             let id = setInterval(() => {
                 setMessage(false)
@@ -69,14 +67,7 @@ const App = () => {
                             toggleRef={blogFormRef}
                         />
                     </Togglable>
-                    <h2>blogs</h2>
-                    {blogs.map((blog) => (
-                        <Blog
-                            key={blog.id}
-                            blog={blog}
-                            blogService={blogService}
-                        />
-                    ))}
+                    <BlogList blogService={blogService} user={user} />
                 </div>
             )}
         </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-const Blog = ({ blog, blogService }) => {
+const Blog = ({ blog, blogService, setBlogs, blogs }) => {
     const [detail, showDetail] = useState(false)
     const [likes, setLikes] = useState(blog.likes)
     if (detail) {
@@ -21,6 +21,9 @@ const Blog = ({ blog, blogService }) => {
                             title: blog.title,
                             url: blog.url,
                         })
+                        let newBlogs = [...blogs]
+                        newBlogs[blogs.indexOf(blog)] = blog
+                        setBlogs(newBlogs)
                     }}
                 >
                     like
