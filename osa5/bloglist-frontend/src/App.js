@@ -8,8 +8,6 @@ import BlogList from './components/BlogList'
 
 const App = () => {
     const [user, setUser] = useState(null)
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
     const [message, setMessage] = useState(false)
     const [lastAdded, setLastAdded] = useState({})
     const blogFormRef = useRef()
@@ -36,14 +34,7 @@ const App = () => {
         <div>
             {message === true && user === null ? <Message type='login' /> : ''}
             {user === null ? (
-                <LoginForm
-                    username={username}
-                    setUsername={setUsername}
-                    setPassword={setPassword}
-                    password={password}
-                    setUser={setUser}
-                    setMessage={setMessage}
-                />
+                <LoginForm setUser={setUser} setMessage={setMessage} />
             ) : (
                 <div>
                     {message === true ? (

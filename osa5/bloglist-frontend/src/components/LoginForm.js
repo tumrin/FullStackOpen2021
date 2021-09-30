@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import loginService from '../services/login'
 import blogsService from '../services/blogs'
 
@@ -17,14 +17,9 @@ const handleLogin = async (event, username, password, setUser, setMessage) => {
     }
 }
 
-const LoginForm = ({
-    username,
-    setUsername,
-    password,
-    setPassword,
-    setUser,
-    setMessage,
-}) => {
+const LoginForm = ({ setUser, setMessage }) => {
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
     return (
         <form
             onSubmit={async (event) =>
