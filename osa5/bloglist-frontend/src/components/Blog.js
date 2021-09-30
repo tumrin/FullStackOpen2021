@@ -31,7 +31,6 @@ const Blog = ({ blog, blogService, setBlogs, blogs, user }) => {
                 <br />
                 {blog.user.name}
                 <br />
-                {console.log(user)}
                 {blog.user.username === user.username ? (
                     <button
                         onClick={() => {

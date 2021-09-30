@@ -30,39 +30,37 @@ const App = () => {
         }
     }, [])
 
-    return (
-        <div>
-            {message === true && user === null ? <Message type='login' /> : ''}
-            {user === null ? (
+    if (user === null) {
+        return (
+            <div>
+                {message ? <Message type='login' /> : ''}
                 <LoginForm setUser={setUser} setMessage={setMessage} />
-            ) : (
-                <div>
-                    {message === true ? (
-                        <Message type='blog' blog={lastAdded} />
-                    ) : (
-                        ''
-                    )}
-                    {user.name} logged in
-                    <button
-                        onClick={() => {
-                            window.localStorage.removeItem('loggedBlogUser')
-                            setUser(null)
-                        }}
-                    >
-                        logout
-                    </button>
-                    <Togglable buttonLabel='New blog' ref={blogFormRef}>
-                        <BlogForm
-                            setMessage={setMessage}
-                            setLastAdded={setLastAdded}
-                            toggleRef={blogFormRef}
-                        />
-                    </Togglable>
-                    <BlogList blogService={blogService} user={user} />
-                </div>
-            )}
-        </div>
-    )
+            </div>
+        )
+    } else {
+        return (
+            <div>
+                {message ? <Message type='blog' blog={lastAdded} /> : ''}
+                {user.name} logged in
+                <button
+                    onClick={() => {
+                        window.localStorage.removeItem('loggedBlogUser')
+                        setUser(null)
+                    }}
+                >
+                    logout
+                </button>
+                <Togglable buttonLabel='New blog' ref={blogFormRef}>
+                    <BlogForm
+                        setMessage={setMessage}
+                        setLastAdded={setLastAdded}
+                        toggleRef={blogFormRef}
+                    />
+                </Togglable>
+                <BlogList blogService={blogService} user={user} />
+            </div>
+        )
+    }
 }
 
 export default App
