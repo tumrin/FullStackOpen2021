@@ -14,7 +14,7 @@ const Blog = ({ blog, blogService, setBlogs, blogs, user }) => {
         <button
           onClick={() => {
             setLikes(++blog.likes)
-            blogService.update(blog.id, {
+            blogService?.update(blog.id, {
               user: blog.user.id,
               likes: blog.likes,
               author: blog.author,

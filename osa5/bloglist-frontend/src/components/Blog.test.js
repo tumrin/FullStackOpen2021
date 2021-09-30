@@ -40,3 +40,30 @@ test('Renders url and likes', () => {
     'Testauksen alkeet' && 'Testi Henkilö' && 'testaus.test' && 2
   )
 })
+
+test('Call handler 2 times', () => {
+  const user = {
+    name: 'Toinen Testaaja',
+    username: 'tt',
+  }
+  const blog = {
+    title: 'Tastauksen alkeet',
+    author: 'Testi Henkilö',
+    url: 'testaus.test',
+    likes: 2,
+    user: user,
+  }
+  const blogs = [blog]
+
+  const mockHandler = jest.fn()
+  const component = render(
+    <Blog blog={blog} user={user} setBlogs={mockHandler} blogs={blogs} />
+  )
+  const button = component.container.querySelector('button')
+  fireEvent.click(button)
+
+  const likeButton = component.getByText('like')
+  fireEvent.click(likeButton)
+  fireEvent.click(likeButton)
+  expect(mockHandler.mock.calls).toHaveLength(2)
+})
