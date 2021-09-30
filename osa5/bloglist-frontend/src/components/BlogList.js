@@ -6,7 +6,6 @@ const BlogList = ({ blogService, user }) => {
     useEffect(() => {
         blogService.getAll().then((blogs) => setBlogs(blogs))
     }, [blogService, user])
-    console.log(blogs)
     blogs.sort((a, b) => b.likes - a.likes)
     return (
         <div>

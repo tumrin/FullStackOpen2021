@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const Message = ({ type, blog }) => {
     return (
@@ -8,6 +9,10 @@ const Message = ({ type, blog }) => {
                 : `${blog.title} by ${blog.author} added`}
         </div>
     )
+}
+
+Message.propTypes = {
+    type: PropTypes.string.isRequired,
 }
 
 export default Message
