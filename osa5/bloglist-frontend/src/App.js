@@ -6,6 +6,22 @@ import Message from './components/Message'
 import Togglable from './components/Togglable'
 import BlogList from './components/BlogList'
 
+const creationHandler = async (
+  event,
+  blog,
+  setBlog,
+  setMessage,
+  setLastAdded,
+  toggleRef
+) => {
+  event.preventDefault()
+  await blogService.create(blog)
+  setMessage(true)
+  setLastAdded(blog)
+  toggleRef.current.toggleVisibility()
+  setBlog({ title: '', author: '', url: '' })
+}
+
 const App = () => {
   const [user, setUser] = useState(null)
   const [message, setMessage] = useState(false)
@@ -55,6 +71,7 @@ const App = () => {
             setMessage={setMessage}
             setLastAdded={setLastAdded}
             toggleRef={blogFormRef}
+            creationHandler={creationHandler}
           />
         </Togglable>
         <BlogList blogService={blogService} user={user} />

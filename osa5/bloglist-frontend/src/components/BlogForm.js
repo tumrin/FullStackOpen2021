@@ -1,23 +1,6 @@
 import React, { useState } from 'react'
-import blogService from '../services/blogs'
 
-const creationHandler = async (
-  event,
-  blog,
-  setBlog,
-  setMessage,
-  setLastAdded,
-  toggleRef
-) => {
-  event.preventDefault()
-  await blogService.create(blog)
-  setMessage(true)
-  setLastAdded(blog)
-  toggleRef.current.toggleVisibility()
-  setBlog({ title: '', author: '', url: '' })
-}
-
-const BlogForm = ({ setMessage, setLastAdded, toggleRef }) => {
+const BlogForm = ({ setMessage, setLastAdded, toggleRef, creationHandler }) => {
   const [blog, setBlog] = useState({ title: '', author: '', url: '' })
   return (
     <form
@@ -35,18 +18,21 @@ const BlogForm = ({ setMessage, setLastAdded, toggleRef }) => {
       <h1>Create new blog</h1>
       <label>Title</label>
       <input
+        id='title'
         value={blog.title}
         onChange={(event) => setBlog({ ...blog, title: event.target.value })}
       />
       <br />
       <label>Author</label>
       <input
+        id='author'
         value={blog.author}
         onChange={(event) => setBlog({ ...blog, author: event.target.value })}
       />
       <br />
       <label>URL</label>
       <input
+        id='url'
         value={blog.url}
         onChange={(event) => setBlog({ ...blog, url: event.target.value })}
       />
