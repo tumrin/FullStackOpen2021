@@ -4,7 +4,10 @@ const Blog = ({ blog, blogService, setBlogs, blogs, user }) => {
   const [likes, setLikes] = useState(blog.likes)
   if (detail) {
     return (
-      <div style={{ borderStyle: 'solid', marginBottom: 10, padding: 2 }}>
+      <div
+        className='blog'
+        style={{ borderStyle: 'solid', marginBottom: 10, padding: 2 }}
+      >
         {blog.title} {blog.author}{' '}
         <button onClick={() => showDetail(false)}>hide</button>
         <br />
@@ -52,7 +55,7 @@ const Blog = ({ blog, blogService, setBlogs, blogs, user }) => {
     )
   } else {
     return (
-      <div>
+      <div className='blog'>
         {blog.title} {blog.author}
         <button id='showButton' onClick={() => showDetail(true)}>
           show

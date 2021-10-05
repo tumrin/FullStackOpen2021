@@ -75,6 +75,22 @@ describe('Blog app', function () {
         cy.get('#removeButton').click()
         cy.contains('Testing with Cypress').should('not.exist')
       })
+      describe('When two or more blogs', function () {
+        beforeEach(function () {
+          cy.createBlog({
+            title: 'Testing with Cypress2',
+            author: 'Tester2',
+            url: 'Testi.test2',
+          })
+        })
+
+        it('The blog with most likes is first', function () {
+          cy.get('.blog').first().should('contain', 'Testing with Cypress')
+          cy.get(':nth-child(3) > #showButton').click()
+          cy.get('#likeButton').click()
+          cy.get('.blog').first().should('contain', 'Testing with Cypress2')
+        })
+      })
     })
   })
 })
