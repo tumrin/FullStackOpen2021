@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useEffect, useState } from 'react'
 import Blog from './Blog'
 
@@ -6,20 +7,23 @@ const BlogList = ({ blogService, user }) => {
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs))
   }, [blogService, user])
-  blogs.sort((a, b) => b.likes - a.likes)
+
   return (
     <div>
       <h2>blogs</h2>
-      {blogs.map((blog) => (
-        <Blog
-          key={blog.id}
-          blog={blog}
-          blogService={blogService}
-          setBlogs={setBlogs}
-          blogs={blogs}
-          user={user}
-        />
-      ))}
+      {blogs
+        ? blogs.sort((a, b) => b.likes - a.likes) &&
+          blogs.map((blog) => (
+            <Blog
+              key={blog.id}
+              blog={blog}
+              blogService={blogService}
+              setBlogs={setBlogs}
+              blogs={blogs}
+              user={user}
+            />
+          ))
+        : ''}
     </div>
   )
 }
