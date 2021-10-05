@@ -10,8 +10,9 @@ const Blog = ({ blog, blogService, setBlogs, blogs, user }) => {
         <br />
         {blog.url}
         <br />
-        {likes}{' '}
+        <span id='likes'>{likes}</span>
         <button
+          id='likeButton'
           onClick={() => {
             setLikes(++blog.likes)
             blogService?.update(blog.id, {
@@ -52,7 +53,9 @@ const Blog = ({ blog, blogService, setBlogs, blogs, user }) => {
     return (
       <div>
         {blog.title} {blog.author}
-        <button onClick={() => showDetail(true)}>show</button>
+        <button id='showButton' onClick={() => showDetail(true)}>
+          show
+        </button>
       </div>
     )
   }
