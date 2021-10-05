@@ -70,6 +70,11 @@ describe('Blog app', function () {
         cy.get('#likeButton').click()
         cy.get('#likes').contains(1)
       })
+      it('A blog can be removed', function () {
+        cy.get('#showButton').click()
+        cy.get('#removeButton').click()
+        cy.contains('Testing with Cypress').should('not.exist')
+      })
     })
   })
 })

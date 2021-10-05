@@ -34,6 +34,7 @@ const Blog = ({ blog, blogService, setBlogs, blogs, user }) => {
         <br />
         {blog.user.username === user.username ? (
           <button
+            id='removeButton'
             onClick={() => {
               let result = window.confirm(`Remove ${blog.title}?`)
               if (result) {
