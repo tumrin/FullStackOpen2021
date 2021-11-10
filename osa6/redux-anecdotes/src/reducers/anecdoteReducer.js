@@ -47,11 +47,7 @@ export const voteAnectode = (id) => {
     data: { id },
   }
 }
-export const addAnectode = (event) => {
-  event.preventDefault()
-  console.log(event)
-  const content = event.target.anecdote.value
-  event.target.anecdote.value = ''
+export const addAnectode = (content) => {
   return {
     type: 'NEW_ANECTODE',
     data: { content, id: getId(), votes: 0 },
