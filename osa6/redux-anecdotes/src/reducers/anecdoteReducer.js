@@ -32,6 +32,9 @@ const reducer = (state = initialState, action) => {
       return state.map((anectode) =>
         anectode.id === action.data.id ? addedVote : anectode
       )
+    case 'NEW_ANECTODE':
+      console.log('here')
+      return state.concat(action.data)
     default:
       return state
   }
@@ -40,6 +43,16 @@ export const voteAnectode = (id) => {
   return {
     type: 'VOTE',
     data: { id },
+  }
+}
+export const addAnectode = (event) => {
+  event.preventDefault()
+  console.log(event)
+  const content = event.target.anecdote.value
+  event.target.anecdote.value = ''
+  return {
+    type: 'NEW_ANECTODE',
+    data: { content, id: getId(), votes: 0 },
   }
 }
 
