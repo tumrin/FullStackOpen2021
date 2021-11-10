@@ -29,12 +29,14 @@ const reducer = (state = initialState, action) => {
         (element) => element.id === action.data.id
       )
       const addedVote = { ...votedAnectode, votes: votedAnectode.votes + 1 }
-      return state.map((anectode) =>
-        anectode.id === action.data.id ? addedVote : anectode
-      )
+      return state
+        .map((anectode) =>
+          anectode.id === action.data.id ? addedVote : anectode
+        )
+        .sort((a, b) => b.votes - a.votes)
     case 'NEW_ANECTODE':
       console.log('here')
-      return state.concat(action.data)
+      return state.concat(action.data).sort((a, b) => b.votes - a.votes)
     default:
       return state
   }
