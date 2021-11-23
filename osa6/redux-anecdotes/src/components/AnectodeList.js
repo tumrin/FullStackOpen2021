@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { voteAnectode } from '../reducers/anecdoteReducer'
 
 const AnectodeList = () => {
-  const anecdotes = useSelector((state) => state)
+  const anecdotes = useSelector(({ anectode }) => anectode)
   const dispatch = useDispatch()
 
   const vote = (id) => {
