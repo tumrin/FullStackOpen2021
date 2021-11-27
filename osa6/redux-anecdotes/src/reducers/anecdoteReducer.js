@@ -35,7 +35,6 @@ const anectodeReducer = (state = initialState, action) => {
         )
         .sort((a, b) => b.votes - a.votes)
     case 'NEW_ANECTODE':
-      console.log('here')
       return state.concat(action.data).sort((a, b) => b.votes - a.votes)
     default:
       return state
