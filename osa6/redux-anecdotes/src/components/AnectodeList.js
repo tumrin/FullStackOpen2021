@@ -6,6 +6,7 @@ import { showNotification } from '../reducers/notificationReducer'
 const AnectodeList = () => {
   const anecdotes = useSelector(({ anectode }) => anectode)
   const dispatch = useDispatch()
+  const filter = useSelector((state) => state.filter.content)
 
   const vote = (id) => {
     console.log('vote', id)
@@ -20,16 +21,19 @@ const AnectodeList = () => {
   }
   return (
     <div>
-      <h2>Anecdotes</h2>
-      {anecdotes.map((anecdote) => (
-        <div key={anecdote.id}>
-          <div>{anecdote.content}</div>
-          <div>
-            has {anecdote.votes}
-            <button onClick={() => vote(anecdote.id)}>vote</button>
+      {anecdotes.map((anecdote) =>
+        anecdote.content.toLowerCase().startsWith(filter.toLowerCase()) ? (
+          <div key={anecdote.id}>
+            <div>{anecdote.content}</div>
+            <div>
+              has {anecdote.votes}
+              <button onClick={() => vote(anecdote.id)}>vote</button>
+            </div>
           </div>
-        </div>
-      ))}
+        ) : (
+          ''
+        )
+      )}
     </div>
   )
 }

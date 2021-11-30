@@ -15,8 +15,6 @@ const notificationReducer = (state = initialState, action) => {
   }
 }
 export const showNotification = (content, visibility, message) => {
-  console.log('content: ')
-  console.log(visibility)
   return {
     type: 'NOTIFICATION',
     data: { content: content, visibility: visibility, message: message },
