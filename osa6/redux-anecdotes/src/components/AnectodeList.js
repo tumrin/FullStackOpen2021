@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { voteAnectode } from '../reducers/anecdoteReducer'
+import { showNotification } from '../reducers/notificationReducer'
 
 const AnectodeList = () => {
   const anecdotes = useSelector(({ anectode }) => anectode)
@@ -9,6 +10,13 @@ const AnectodeList = () => {
   const vote = (id) => {
     console.log('vote', id)
     dispatch(voteAnectode(id))
+    dispatch(
+      showNotification(
+        anecdotes.find((e) => e.id === id).content,
+        true,
+        'Voted'
+      )
+    )
   }
   return (
     <div>
