@@ -19,6 +19,7 @@ const AnectodeList = () => {
       )
     )
   }
+  console.log(anecdotes)
   return (
     <div>
       {anecdotes.map((anecdote) =>
