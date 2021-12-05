@@ -11,9 +11,8 @@ const AnectodeForm = () => {
     console.log(event)
     const content = event.target.anecdote.value
     event.target.anecdote.value = ''
-    const anecdote = await anecdoteService.createNew(content)
-    dispatch(addAnectode(anecdote))
-    dispatch(showNotification(anecdote.content, true, 'Added'))
+    dispatch(addAnectode(content))
+    dispatch(showNotification(content, true, 'Added'))
   }
   return (
     <div>
