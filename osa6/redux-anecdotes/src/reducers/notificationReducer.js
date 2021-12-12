@@ -6,18 +6,19 @@ const notificationReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'NOTIFICATION':
       return {
-        content: action.data.content,
-        visibility: action.data.visibility,
         message: action.data.message,
+        time: action.data.time,
       }
     default:
       return state
   }
 }
-export const showNotification = (content, visibility, message) => {
-  return {
-    type: 'NOTIFICATION',
-    data: { content: content, visibility: visibility, message: message },
+export const showNotification = (message, time) => {
+  return async (dispatch) => {
+    dispatch({
+      type: 'NOTIFICATION',
+      data: { message: message, time: time },
+    })
   }
 }
 export default notificationReducer

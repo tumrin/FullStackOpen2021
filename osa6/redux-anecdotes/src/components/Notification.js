@@ -3,31 +3,26 @@ import { useDispatch, useSelector } from 'react-redux'
 import { showNotification } from '../reducers/notificationReducer'
 
 const Notification = () => {
-  const notification = useSelector(({ notification }) => notification.content)
-  const visibility = useSelector(({ notification }) => notification.visibility)
   const message = useSelector(({ notification }) => notification.message)
-  const [visible, setVisible] = useState(false)
+  const time = useSelector(({ notification }) => notification.time)
+  const [visible, setVisible] = useState('visible')
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (visibility) {
-      setVisible(true)
-      setTimeout(() => {
-        setVisible(false)
-        dispatch(showNotification(notification, false))
-      }, 1000)
-    }
-  }, [dispatch, notification, visibility])
+    setVisible('visible')
+    setTimeout(() => {
+      setVisible('hidden')
+      dispatch(showNotification('', 0))
+    }, time * 1000)
+  }, [dispatch, time])
 
   const style = {
+    visibility: visible,
     border: 'solid',
     padding: 10,
     borderWidth: 1,
   }
-  if (visible) {
-    return <div style={style}>{`${message} ${notification}`}</div>
-  }
-  return <div></div>
+  return <div style={style}>{`${message}`}</div>
 }
 
 export default Notification

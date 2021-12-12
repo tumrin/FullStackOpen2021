@@ -11,7 +11,7 @@ const AnectodeForm = () => {
     const content = event.target.anecdote.value
     event.target.anecdote.value = ''
     dispatch(addAnectode(content))
-    dispatch(showNotification(content, true, 'Added'))
+    dispatch(showNotification(`you voted '${content}'`, 10))
   }
   return (
     <div>
