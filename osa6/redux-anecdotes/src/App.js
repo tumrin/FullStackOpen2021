@@ -5,7 +5,6 @@ import AnectodeForm from './components/AnectodeForm'
 import AnectodeList from './components/AnectodeList'
 import Filter from './components/Filter'
 import Notification from './components/Notification'
-import anecdoteService from './services/anecdotes'
 import { initializeAnecdotes } from './reducers/anecdoteReducer'
 
 const App = () => {
