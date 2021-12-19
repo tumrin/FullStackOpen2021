@@ -12,10 +12,7 @@ const AnectodeList = () => {
     console.log('vote', id)
     dispatch(voteAnectode(id))
     dispatch(
-      showNotification(
-        `Voted ${anecdotes.find((e) => e.id === id).content}`,
-        10
-      )
+      showNotification(`Voted ${anecdotes.find((e) => e.id === id).content}`, 5)
     )
   }
   console.log(anecdotes)

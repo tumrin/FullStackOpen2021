@@ -5,15 +5,21 @@ import { showNotification } from '../reducers/notificationReducer'
 const Notification = (props) => {
   const message = props.notification.message
   const time = props.notification.time
+  const anectode = props.anectode
+  console.log(anectode)
   const [visible, setVisible] = useState('visible')
+  const [timer, setTimer] = useState(null)
+
   useEffect(() => {
     setVisible('visible')
-    setTimeout(() => {
+    clearTimeout(timer)
+    const timerID = setTimeout(() => {
       setVisible('hidden')
       props.showNotification('', 0)
     }, time * 1000)
+    setTimer(timerID)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [time])
+  }, [time, anectode])
 
   const style = {
     visibility: visible,
@@ -27,6 +33,7 @@ const Notification = (props) => {
 const mapStateToProps = (state) => {
   return {
     notification: state.notification,
+    anectode: state.anectode,
   }
 }
 const mapDispatchToProps = { showNotification }

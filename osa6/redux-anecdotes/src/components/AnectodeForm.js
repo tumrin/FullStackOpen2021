@@ -10,7 +10,7 @@ const AnectodeForm = (props) => {
     const content = event.target.anecdote.value
     event.target.anecdote.value = ''
     props.addAnectode(content)
-    props.showNotification(`Added '${content}'`, 10)
+    props.showNotification(`Added '${content}'`, 5)
   }
   return (
     <div>
