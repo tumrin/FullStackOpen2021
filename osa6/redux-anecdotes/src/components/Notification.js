@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 import { showNotification } from '../reducers/notificationReducer'
 
-const Notification = () => {
-  const message = useSelector(({ notification }) => notification.message)
-  const time = useSelector(({ notification }) => notification.time)
+const Notification = (props) => {
+  const message = props.notification.message
+  const time = props.notification.time
   const [visible, setVisible] = useState('visible')
-  const dispatch = useDispatch()
-
   useEffect(() => {
     setVisible('visible')
     setTimeout(() => {
       setVisible('hidden')
-      dispatch(showNotification('', 0))
+      props.showNotification('', 0)
     }, time * 1000)
-  }, [dispatch, time])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [time])
 
   const style = {
     visibility: visible,
@@ -25,4 +24,15 @@ const Notification = () => {
   return <div style={style}>{`${message}`}</div>
 }
 
-export default Notification
+const mapStateToProps = (state) => {
+  return {
+    notification: state.notification,
+  }
+}
+const mapDispatchToProps = { showNotification }
+
+const ConnectedNotification = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Notification)
+export default ConnectedNotification
